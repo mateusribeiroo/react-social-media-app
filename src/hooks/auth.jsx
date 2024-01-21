@@ -44,6 +44,7 @@ export function useLogin() {
                 position: "top",
                 duration: 5000,
             })
+            setIsLoading(false);
             return false;
         }
         setIsLoading(false);
