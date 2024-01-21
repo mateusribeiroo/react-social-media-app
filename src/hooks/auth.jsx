@@ -49,4 +49,5 @@ export function useLogin() {
         setIsLoading(false);
         return true;
     }
+    return { login, isLoading };
 }

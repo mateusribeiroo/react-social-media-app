@@ -3,25 +3,31 @@ import { Link as RouterLink } from "react-router-dom"
 import { REGISTER } from '../../lib/routes'
 import { useLogin } from "../../hooks/auth"
 import { useForm } from 'react-hook-form'
+import { emailValidate, passwordValidate } from "../../utils/formValidate"
 
 export default function Login(){
     const { login, isLoading } = useLogin();
-    const { register } = useForm();
+    const { register, handleSubmit, reset, formState: {errors} } = useForm();
     
+    async function handleLogin(data) {
+        const succeeded = await login({ email: data.email, password: data.password });
+
+        if(succeeded) reset(); //limpa os campos do formulário
+    }
 
     return (
         <Center w="100%" h="100vh">
             <Box mx="1" maxW="md" p="9" borderRadius="lg" borderWidth="1px"> 
                 <Heading mb="4" size="lg" textAlign="center">Log In</Heading>
-                <form onSubmit={ () => {} }>
+                <form onSubmit={ handleSubmit(handleLogin) }>
                     <FormControl isInvalid={true} py="2">
                         <FormLabel>Email</FormLabel>
-                        <Input type="email" placeholder="user@email.com" { ...register('email') }></Input>
+                        <Input type="email" placeholder="user@email.com" { ...register('email', emailValidate) }></Input>
                         <FormErrorMessage>Esta é uma mensagem de erro</FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={true} py="2">
                         <FormLabel>Senha</FormLabel>
-                        <Input type="password" placeholder="senha..." { ...register('password') }></Input>
+                        <Input type="password" placeholder="senha..." { ...register('password ', passwordValidate) }></Input>
                         <FormErrorMessage>Esta é uma mensagem de erro</FormErrorMessage>
                     </FormControl>
                     <Button mt="4" type="submit" size="md" colorScheme="teal" w="full" isLoading={false}>Enviar</Button>
