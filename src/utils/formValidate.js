@@ -18,10 +18,10 @@ export const emailValidate = {
         value: true,
         message: "Por favor insira seu email"
     },
-    // pattern: {
-    //     value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,
-    //     message: "Endereço de email inválido"
-    // }
+    pattern: {
+        value: /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+([a-z]+)?$/i,
+        message: "Endereço de email inválido"
+    }
 };
 
 export const passwordValidate = {
