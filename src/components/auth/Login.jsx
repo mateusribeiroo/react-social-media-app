@@ -11,6 +11,7 @@ export default function Login(){
     
     console.log(errors)
     async function handleLogin(data) {
+        console.log(data)
         const succeeded = await login({ 
             email: data.email, 
             password: data.password,
@@ -32,7 +33,7 @@ export default function Login(){
                     </FormControl>
                     <FormControl isInvalid={errors.password} py="2">
                         <FormLabel>Senha</FormLabel>
-                        <Input type="password" placeholder="senha..." { ...register('password ', passwordValidate) }></Input>
+                        <Input type="password" placeholder="senha..." { ...register('password', passwordValidate) }></Input>
                         <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
                     </FormControl>
                     <Button mt="4" type="submit" size="md" colorScheme="teal" w="full" isLoading={isLoading}>Enviar</Button>
