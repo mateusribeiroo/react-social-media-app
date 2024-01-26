@@ -1,10 +1,11 @@
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth'
 import { useState } from 'react'
-import { auth } from '../lib/firebase'
+import { auth, db } from '../lib/firebase'
 import { DASHBOARD, LOGIN } from '../lib/routes';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import {setDoc, doc} from 'firebase/firestore'
 
 export function useAuth(){
     
@@ -50,6 +51,62 @@ export function useLogin() {
         return true;
     }
     return { login, isLoading };
+}
+
+export function useRegister() {
+    const [isLoading, setIsLoading] = useState(false);
+    const toast = useToast();
+
+    async function register({ username, email, password, redirectTo=DASHBOARD }){
+        setIsLoading(true);
+        const usernameExists = await isUsernameExists(username);// necessário criar esta função
+
+        if(usernameExists){
+            toast({
+                title: "Nome de usuário já existe!",
+                status: "error",
+                isClosable: true,
+                position: "top",
+                duration: 5000
+            })
+            setIsLoading(false);
+        }else{
+            try {
+                const res = await createUserWithEmailAndPassword(auth, email, password);
+
+                setDoc(doc(db, "users", res.user.uid), {
+                    id: res.user.uid,
+                    username: username.toLowerCase(),
+                    avatar: "",
+                    date: Date.now()
+                });
+
+                toast({
+                    title: "Conta criada com sucesso!",
+                    description: "Você está logado!"
+                    status: "success",
+                    isClosable: true,
+                    position: "top",
+                    duration: 5000,
+                })
+
+            } catch (error) {
+                toast({
+                    title: "Não foi possível registrar!",
+                    status: "error",
+                    isClosable: true,
+                    position: "top",
+                    duration: 5000,
+                    description: error.message
+                })
+            }
+        }
+        setIsLoading(false);
+
+      
+    }
+
+    return {register, isLoading};
 }
 
 
