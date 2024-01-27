@@ -36,7 +36,13 @@ export default function Login(){
                         <Input type="password" placeholder="senha..." { ...register('password', passwordValidate) }></Input>
                         <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
                     </FormControl>
-                    <Button mt="4" type="submit" size="md" colorScheme="teal" w="full" isLoading={isLoading}>Enviar</Button>
+                    <Button mt="4" type="submit" 
+                        size="md" colorScheme="teal" 
+                        w="full" isLoading={isLoading}
+                        loadingText="Entrando..."
+                    >
+                        Enviar
+                    </Button>
                 </form>
                 <Text fontSize="xlg" align="center" mt="6">
                     Não possui registro?{" "}

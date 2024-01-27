@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } f
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import {setDoc, doc} from 'firebase/firestore'
+import { isUsernameExists } from "../utils/isUsernameExists"
 
 export function useAuth(){
     
@@ -59,7 +60,7 @@ export function useRegister() {
 
     async function register({ username, email, password, redirectTo=DASHBOARD }){
         setIsLoading(true);
-        const usernameExists = await isUsernameExists(username);// necessário criar esta função
+        const usernameExists = await isUsernameExists(username);
 
         if(usernameExists){
             toast({
@@ -83,7 +84,7 @@ export function useRegister() {
 
                 toast({
                     title: "Conta criada com sucesso!",
-                    description: "Você está logado!"
+                    description: "Você está logado!",
                     status: "success",
                     isClosable: true,
                     position: "top",
