@@ -19,14 +19,14 @@ export function useAuth(){
             const ref = doc(db, "users", authUser.uid);
             const docSnap = await getDoc(ref);
             setUser(docSnap.data());
-            setLoading(false);
+            setIsLoading(false);
         }
 
         if(!authLoading){
             if(authUser){
                 fetchData();
             }else{
-                setLoading(false);// nao logado
+                setIsLoading(false);// nao logado
             }
         }
     }, [authLoading]);
