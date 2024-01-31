@@ -15,7 +15,7 @@ export function useAuth(){
 
     useEffect(() => {
         async function fetchData(){
-            setLoading(true);
+            setIsLoading(true);
             const ref = doc(db, "users", authUser.uid);
             const docSnap = await getDoc(ref);
             setUser(docSnap.data());
