@@ -1,10 +1,14 @@
-import { Outlet } from "react-router-dom";
-
+import { Box, HStack, Heading, Button } from '@chakra-ui/react';
 
 export default function Dashboard() {
     return (
-        <div> 
-            Dashboard
-        </div>
+        <Box maxW="600px" mx="auto" py="10">
+            <form>
+                <HStack justify="space-between">
+                    <Heading size="lg">Nova Postagem</Heading>
+                    <Button colorScheme="teal">Postar</Button>
+                </HStack>
+            </form>
+        </Box>       
     );
 }
