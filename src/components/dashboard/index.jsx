@@ -1,14 +1,11 @@
-import { Box, HStack, Heading, Button } from '@chakra-ui/react';
+import NewPost from "../post/NewPost.jsx";
+import PostList from "../post/PostList.jsx";
 
 export default function Dashboard() {
     return (
-        <Box maxW="600px" mx="auto" py="10">
-            <form>
-                <HStack justify="space-between">
-                    <Heading size="lg">Nova Postagem</Heading>
-                    <Button colorScheme="teal">Postar</Button>
-                </HStack>
-            </form>
-        </Box>       
-    );
+        <>
+            <NewPost />
+            <PostList />
+        </>
+    )
 }
