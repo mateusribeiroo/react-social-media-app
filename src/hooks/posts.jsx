@@ -1,8 +1,9 @@
 import { uuidv4 } from "@firebase/util";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, query, collection, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
+import { useCollectionData } from "react-firebase-hooks/firestore"
 
 export function useAddPost(){
   const toast = useToast();
@@ -28,4 +29,13 @@ export function useAddPost(){
   }
 
   return { addPost, isLoading}
+}
+
+export function usePosts(){
+  const q = query(collection(db, "posts"), orderBy("date", "desc"));
+  const [posts, isLoading, error] = useCollectionData(q);
+
+  if(error) throw error;
+
+  return { posts, isLoading };
 }
