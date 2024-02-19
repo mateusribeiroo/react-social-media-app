@@ -1,9 +1,12 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import UsernameButton from "../profile/UsernameButton";
-import Avatar from "../profile/Avatar"
-import { useUser } from "../../hooks/users"
+import Avatar from "../profile/Avatar";
+import { useUser } from "../../hooks/users";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
-export function Header({ uid, date }){
+export function Header({ post }){
+    const { uid, date } = post;
     const {user, isLoading} = useUser(uid);
 
     if(isLoading){
@@ -33,7 +36,7 @@ export function Header({ uid, date }){
                     fontSize="sm"
                     color="gray.500"
                 >
-                    Há {date}
+                    Há {formatDistanceToNow(date, { locale: ptBR })}
                 </Text>
             </Box>
         </Flex>

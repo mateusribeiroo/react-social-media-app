@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PROTECTED } from "../../lib/routes.jsx";
 
 
-export default function UsernameButton({user}){
+export default function UsernameButton({ user }){
  return (
    <Button 
     colorScheme="teal" 
