@@ -3,7 +3,7 @@ import { useState } from "react";
 import { doc, setDoc, query, collection, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
-import { useCollectionData } from "react-firebase-hooks/firestore"
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export function useAddPost(){
   const toast = useToast();
@@ -38,4 +38,8 @@ export function usePosts(){
   if(error) throw error;
 
   return { posts, isLoading };
+}
+
+export function useToggleLike({ id, isLiked, uid }){
+ 
 }
