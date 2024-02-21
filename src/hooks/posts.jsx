@@ -3,7 +3,7 @@ import { useState } from "react";
 import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion, deleteDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
 
 export function useAddPost(){
   const toast = useToast();
@@ -58,10 +58,10 @@ export function useToggleLike({ id, isLiked, uid }){
   return { toggleLike, isLoading };
 }
 
-export function useDeletePost(){
- // const [isLoading, setIsLoading] = useState(false);
+export function useDeletePost(id){
+ const [isLoading, setIsLoading] = useState(false);
 
- // async function deletePost(id){
+  async function deletePost(){
  //   setIsLoading(true);
 
  //   const docRef = doc(db, "posts", id);
@@ -69,7 +69,14 @@ export function useDeletePost(){
  //   await deleteDoc(docRef);
 
  //   setIsLoading(false);
- // }
+ }
 
- // return { deletePost, isLoading };
+ return { deletePost, isLoading };
+}
+
+export function usePost(id){
+  const q = doc(db, "posts", id);
+  const [post, isLoading] = useDocumentData(q);
+
+  return { post, isLoading };
 }
