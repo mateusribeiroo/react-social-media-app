@@ -5,8 +5,8 @@ import { useToggleLike } from "../../hooks/posts.jsx";
 
 export function Actions({ post }){
     const { id, likes } = post;
-    const isLiked = likes.includes(user?.id);
     const { user, isLoading: userLoading } = useAuth();
+    const isLiked = likes.includes(user?.id);
     const { toggleLike, isLoading: likeLoading } = useToggleLike({ id, isLiked, uid: user?.id });
     
     return (
@@ -14,7 +14,7 @@ export function Actions({ post }){
             <Flex alignItems="center">
                 <IconButton 
                     onClick={toggleLike}
-                    isLoading={likeLoading}
+                    isLoading={likeLoading || userLoading}
                     size="md" 
                     colorScheme="red" 
                     variant="ghost" 

@@ -1,6 +1,6 @@
 import { uuidv4 } from "@firebase/util";
 import { useState } from "react";
-import { doc, setDoc, query, collection, orderBy } from "firebase/firestore";
+import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -41,5 +41,19 @@ export function usePosts(){
 }
 
 export function useToggleLike({ id, isLiked, uid }){
- 
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  async function toggleLike(){
+    setIsLoading(true);
+    const docRef = doc(db, "posts", id);
+
+    await updateDoc(docRef, {
+      likes: isLiked ? arrayRemove(uid) : arrayUnion(uid)
+    });
+
+    setIsLoading(false);
+  }
+
+  return { toggleLike, isLoading };
 }
