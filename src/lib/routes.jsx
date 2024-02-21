@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import Dashboard  from "../components/dashboard/index"; 
-import Layout from "../components/layout/index"
+import Layout from "../components/layout/index";
+import Comments from "../components/comments/index";
 
 
 export const ROOT = "/";
@@ -12,8 +13,9 @@ export const REGISTER = "/register";
 export const PROTECTED = "/protected";
 export const DASHBOARD = "/protected/dashboard";
 
-export const USERS = PROTECTED + "/users"
-export const PROFILE = PROTECTED + "profile/:id"
+export const USERS = PROTECTED + "/users";
+export const PROFILE = PROTECTED + "/profile/:id";
+export const COMMENTS = PROTECTED + "/comments/:id";
 
 export const router = createBrowserRouter([
     {
@@ -43,7 +45,11 @@ export const router = createBrowserRouter([
             {
                 path: PROFILE,
                 element: "<Profile />"
-            }
+            },
+            {
+                path: COMMENTS,
+                element: <Comments />
+            } 
         ]
     }
 ]);

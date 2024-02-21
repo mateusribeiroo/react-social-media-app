@@ -1,6 +1,6 @@
 import { uuidv4 } from "@firebase/util";
 import { useState } from "react";
-import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion, deleteDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -56,4 +56,20 @@ export function useToggleLike({ id, isLiked, uid }){
   }
 
   return { toggleLike, isLoading };
+}
+
+export function useDeletePost(){
+ // const [isLoading, setIsLoading] = useState(false);
+
+ // async function deletePost(id){
+ //   setIsLoading(true);
+
+ //   const docRef = doc(db, "posts", id);
+
+ //   await deleteDoc(docRef);
+
+ //   setIsLoading(false);
+ // }
+
+ // return { deletePost, isLoading };
 }
