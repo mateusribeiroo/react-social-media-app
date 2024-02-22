@@ -14,7 +14,8 @@ export default function NewComment({ post }){
     addComent(data.text);
     reset();
   }
-
+  
+  //TODO: estilizar Loading
   if(isLoading) return "Carregando...";
     
   return (

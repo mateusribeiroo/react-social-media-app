@@ -9,7 +9,7 @@ export default function Comments(){
 
   const { post, isLoading } = usePost(id);
   
-  //lembrar de estilizar o loading
+  //TODO: estilizar o loading
   if(isLoading) return "Carregando postagem..."
 
   return (
