@@ -5,13 +5,13 @@ import { useForm } from "react-hook-form";
 import { useAddComment } from "../../hooks/comment";
 
 export default function NewComment({ post }){
-  const { id: postId } = post;
+  const { id: postID } = post;
   const { user, isLoading } = useAuth();
-  const { register, handleSubmit } = useForm();
-  const { addComent, isLoading: commentLoading } = useAddComment({ postId, uid: user?.id });
+  const { register, handleSubmit, reset } = useForm();
+  const { addComment, isLoading: commentLoading } = useAddComment({ postID, uid: user?.id });
 
   function handleAddComment(data){
-    addComent(data.text);
+    addComment(data.text);
     reset();
   }
   

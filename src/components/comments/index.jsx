@@ -3,6 +3,7 @@ import Post from "../post/index";
 import { useParams } from "react-router-dom";
 import { usePost } from "../../hooks/posts";
 import NewComment from "./NewComment";
+import CommentList from "./CommentList";
 
 export default function Comments(){
   const { id } = useParams();
@@ -17,6 +18,8 @@ export default function Comments(){
       <Post post={post}/> 
 
       <NewComment post={post}/>
+
+      <CommentList post={post} />
     </Box>
   )
 }
