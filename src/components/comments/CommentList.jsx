@@ -1,6 +1,6 @@
 import Comment from "./Comment";
 import { useComments } from "../../hooks/comment";
-import { Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
   
 export default function CommentList({ post }){
   const { id } = post;
@@ -9,11 +9,9 @@ export default function CommentList({ post }){
   //TODO: estilizar loading
   if(commentsLoading) return "Carregando comentários...";
 
-  console.log(comments)
-
   return (
-    <Flex justifyContent="center">
-      {comments.map((comment) => <Comment data={comment} />)}
-    </Flex>
+    <Box mx="auto" maxW="600px"> 
+      {comments.map((comment) => <Comment key={comment.id} data={comment} />)}
+    </Box>
   )  
 }

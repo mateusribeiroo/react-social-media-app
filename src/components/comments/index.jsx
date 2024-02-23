@@ -14,7 +14,7 @@ export default function Comments(){
   if(isLoading) return "Carregando postagem..."
 
   return (
-    <Box align="center" pt="50">
+    <Box pt="50">
       <Post post={post}/> 
 
       <NewComment post={post}/>
