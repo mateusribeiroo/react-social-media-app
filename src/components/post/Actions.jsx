@@ -2,6 +2,7 @@ import { Flex, IconButton } from "@chakra-ui/react";
 import { FaRegHeart, FaHeart, FaComment, FaRegComment, FaTrash } from "react-icons/fa";
 import { useAuth } from "../../hooks/auth.jsx";
 import { useToggleLike, useDeletePost } from "../../hooks/posts.jsx";
+import { useComments } from "../../hooks/comment.jsx";
 import { Link } from "react-router-dom";
 import { PROTECTED } from "../../lib/routes.jsx";
 
@@ -12,6 +13,11 @@ export function Actions({ post }){
 
     const { toggleLike, isLoading: likeLoading } = useToggleLike({ id, isLiked, uid: user?.id });
     const { deletePost, isLoading: deletePostLoading } = useDeletePost(id);
+    const { comments, isLoading: commentLoading } = useComments(id);   
+    
+    //TODO: se o usuário comentar em algum post ele deve ver o simbolo FaComment, 
+    //TODO: do contrario ele vera o FaRegComment
+
     
     return (
         <Flex p="2">
@@ -36,10 +42,10 @@ export function Actions({ post }){
                     size="md" 
                     colorScheme="teal" 
                     variant="ghost" 
-                    icon={<FaComment />}
+                    icon={comments?.length > 0 ? <FaComment /> : <FaRegComment />}
                     isRound
                 />
-                5
+                { comments?.length }
             </Flex>
                 <IconButton
                     onClick={deletePost}

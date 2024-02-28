@@ -1,12 +1,17 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, IconButton } from "@chakra-ui/react";
+import { FaTrash } from "react-icons/fa";
 import Avatar from "../profile/Avatar";
 import { useUser } from "../../hooks/users";
+import { useAuth } from "../../hooks/auth"; 
+import { useDeleteComment } from "../../hooks/comment";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import UsernameButton from "../profile/UsernameButton";
 
-export default function Comment({ data }){
-  const { user, isLoading: userLoading } = useUser(data.uid);
+export default function Comment({ comment }){
+  const { user, isLoading: userLoading } = useUser(comment.uid);
+  const { user: authUser, isLoading: authLoading } = useAuth();
+  const { deleteComment, isLoading: deleteCommentLoading } = useDeleteComment(comment.id);
 
   //TODO: estilizar loading
   if(userLoading) return "Carregando usuário";
@@ -20,12 +25,26 @@ export default function Comment({ data }){
             <Box>
               <UsernameButton user={user} /> 
               <Text fontSize="xs" color="gray.500">
-                Há {formatDistanceToNow(data.date, {locale: ptBR})}
+                Há {formatDistanceToNow(comment.date, {locale: ptBR})}
               </Text>
             </Box>
+            {// ** Determina se o botão de apagar comentário deve aparecer
+              !authLoading && authUser.id === comment.uid && (
+                <IconButton 
+                  size="sm"
+                  onClick={deleteComment}
+                  isLoading={deleteCommentLoading}
+                  ml="auto"
+                  icon={<FaTrash />}
+                  colorScheme="red"
+                  variant="ghost"
+                  isRound
+                />
+              )
+            }
           </Flex>
           <Box pt="2" fontSize="sm">
-            <Text>{data.text}</Text>
+            <Text>{comment.text}</Text>
           </Box>
         </Box>
       </Flex>  

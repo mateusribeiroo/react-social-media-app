@@ -16,7 +16,6 @@ export default function Dashboard() {
             fontSize="xl"
             mt="5"
             >
-        
             Carregando posts...
         </Box>
     )

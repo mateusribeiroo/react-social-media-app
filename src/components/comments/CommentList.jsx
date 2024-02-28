@@ -11,7 +11,7 @@ export default function CommentList({ post }){
 
   return (
     <Box mx="auto" maxW="600px"> 
-      {comments.map((comment) => <Comment key={comment.id} data={comment} />)}
+      {comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
     </Box>
   )  
 }
