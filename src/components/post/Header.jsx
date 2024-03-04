@@ -24,7 +24,7 @@ export function Header({ post }){
         <Flex 
             alignItems="center"
             borderBottom="2px solid"
-            borderColor="tela.100"
+            borderColor="teal.100"
             p="3"
             bg="gray.50"
         >

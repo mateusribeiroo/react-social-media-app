@@ -9,7 +9,7 @@ import { PROTECTED } from "../../lib/routes.jsx";
 export function Actions({ post }){
     const { id, likes } = post;
     const { user, isLoading: userLoading } = useAuth();
-    const isLiked = likes.includes(user?.id); 
+    const isLiked = likes.includes(user?.id);
 
     const { toggleLike, isLoading: likeLoading } = useToggleLike({ id, isLiked, uid: user?.id });
     const { deletePost, isLoading: deletePostLoading } = useDeletePost(id);
