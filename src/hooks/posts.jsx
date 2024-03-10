@@ -1,6 +1,6 @@
 import { uuidv4 } from "@firebase/util";
 import { useState } from "react";
-import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, query, collection, orderBy, updateDoc, arrayRemove, arrayUnion, deleteDoc, where } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useToast } from "@chakra-ui/react";
 import { useCollectionData, useDocumentData } from "react-firebase-hooks/firestore";
@@ -33,6 +33,18 @@ export function useAddPost(){
 
 export function usePosts(){
   const q = query(collection(db, "posts"), orderBy("date", "desc"));
+  const [posts, isLoading, error] = useCollectionData(q);
+
+  if(error) throw error;
+
+  return { posts, isLoading };
+}
+
+export function useGetPostsByUID(uid){
+  const q = query(collection(db, "posts"), 
+    where("uid", "==", uid)
+  )
+
   const [posts, isLoading, error] = useCollectionData(q);
 
   if(error) throw error;
