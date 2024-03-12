@@ -1,8 +1,19 @@
-import { Stack, Flex, HStack, Divider, Text } from "@chakra-ui/react";
+import { 
+  Button, 
+  Stack, 
+  Flex, 
+  HStack, 
+  Divider, 
+  Text, 
+  useDisclosure
+} from "@chakra-ui/react";
 import { useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import { useGetPostsByUID } from "../../hooks/posts";
+import { format } from "date-fns/format";
 import Avatar from "./Avatar";
+import EditProfile from "./EditProfile";
+import PostList from "../post/PostList";
 import UsernameButton from "./UsernameButton";
 
 export default function Profile(){
@@ -10,6 +21,8 @@ export default function Profile(){
     const { id }  = useParams();
     const { user, isLoading } = useUser(id);
     const { posts, isLoading: postsLoading } = useGetPostsByUID(id);
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
     
     if (isLoading) return "Carregando...";
     
@@ -20,8 +33,13 @@ export default function Profile(){
       <Stack spacing="5">
         <Flex p={["4", "6"]} pos="relative" align="center">
           <Avatar user={user} size="2xl" />
+
+          <Button onClick={onOpen} pos="absolute" mb="2" top="6" right="6" colorScheme="teal">
+            Trocar avatar
+          </Button>
+
           <Stack ml="10">
-            <UsernameButton user={user} />
+            <Text fontSize="2xl"> {user.username} </Text>
             <HStack spacing="10">
               <Text color="gray.700" fontSize={["sm", "lg"]}>
                 Posts: { posts.length } 
@@ -30,13 +48,15 @@ export default function Profile(){
                 Likes: { likes }
               </Text>
               <Text color="gray.700" fontSize={["sm", "lg"]}>
-                Entrou em: {  } 
+                Entrou em: { format(user.date, "DDD MMM YYY") } 
               </Text>
             </HStack>
           </Stack>
+          <EditProfile isOpen={isOpen} onClose={onClose} user={user}/>
         </Flex>
         <Divider />
-        <Text></Text>
+        <Text m="auto" fontSize="xl" fontWeigth="500">Posts de {user.username}</Text>
+        { postsLoading ? <Text m="auto" fontSize="md">Carregando...</Text> : <PostList  posts={posts}/>}
       </Stack>
     );
 }
