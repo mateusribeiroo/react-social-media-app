@@ -7,6 +7,7 @@ import {
   Text, 
   useDisclosure
 } from "@chakra-ui/react";
+import { useAuth } from "../../hooks/auth";
 import { useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import { useGetPostsByUID } from "../../hooks/posts";
@@ -19,6 +20,7 @@ import UsernameButton from "./UsernameButton";
 export default function Profile(){
     let likes = 0;
     const { id }  = useParams();
+    const { user: authUser, isLoading: authLoading } = useAuth();
     const { user, isLoading } = useUser(id);
     const { posts, isLoading: postsLoading } = useGetPostsByUID(id);
 
@@ -27,16 +29,23 @@ export default function Profile(){
     if (isLoading) return "Carregando...";
     
     posts.forEach(i => likes += i.likes.length);
-    
 
     return (
       <Stack spacing="5">
         <Flex p={["4", "6"]} pos="relative" align="center">
           <Avatar user={user} size="2xl" />
 
-          <Button onClick={onOpen} pos="absolute" mb="2" top="6" right="6" colorScheme="teal">
-            Trocar avatar
-          </Button>
+          {
+            authUser.id == user.id ? 
+            (
+              <Button onClick={onOpen} pos="absolute" mb="2" top="6" right="6" colorScheme="teal">
+                Trocar avatar
+              </Button>
+            ) : 
+            (
+              <></>
+            )
+          }
 
           <Stack ml="10">
             <Text fontSize="2xl"> {user.username} </Text>

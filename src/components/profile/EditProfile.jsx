@@ -16,7 +16,7 @@ import { useUpdateAvatar } from "../../hooks/users";
 import Avatar from "./Avatar";
 
 export default function EditProfile({ isOpen, onClose, user }){
-    const { setFile, updateAvatar, isLoading: fileLoading } = useUpdateAvatar(user.id);
+    const { setFile, updateAvatar, isLoading: fileLoading, fileURL } = useUpdateAvatar(user.id);
 
     function handleChange(e){
         setFile(e.target.files[0])
@@ -30,7 +30,7 @@ export default function EditProfile({ isOpen, onClose, user }){
             <ModalCloseButton />
             <ModalBody>
               <HStack spacing="5">
-                <Avatar user={user} />
+                <Avatar user={user} avatar={fileURL}/>
                 <FormControl py="4">
                     <FormLabel htmlFor="picture">Trocar avatar</FormLabel>
                     <input type="file" accept="image/*" onChange={ handleChange } />

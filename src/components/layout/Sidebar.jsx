@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Code } from "@chakra-ui/react";
+import { Box, Button, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { USERS, PROTECTED } from "../../lib/routes"
 import { useAuth } from "../../hooks/auth";
@@ -12,7 +12,7 @@ function User(){
     return(
         <Stack align="center" spacing="5" my="8">
             <Avatar user={user} />
-            <Code>@{user.username}</Code>
+            <Text>@{user.username}</Text>
             <Button 
                 as={Link} 
                 w="full" 
