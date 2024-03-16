@@ -36,7 +36,7 @@ export default function Profile(){
           <Avatar user={user} size="2xl" />
 
           {
-            authUser.id == user.id ? 
+            !authLoading && (authUser.id == user.id) ? 
             (
               <Button onClick={onOpen} pos="absolute" mb="2" top="6" right="6" colorScheme="teal">
                 Trocar avatar
