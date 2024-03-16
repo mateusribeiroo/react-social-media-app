@@ -5,6 +5,7 @@ import Dashboard  from "../components/dashboard/index";
 import Layout from "../components/layout/index";
 import Comments from "../components/comments/index";
 import Profile from "../components/profile/index"
+import Users from "../components/users/index";
 
 
 export const ROOT = "/";
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: USERS,
-                element: "<Users />"
+                element: <Users />
             },
             {
                 path: PROFILE,
