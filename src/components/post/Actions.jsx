@@ -47,16 +47,26 @@ export function Actions({ post }){
                 />
                 { comments?.length }
             </Flex>
-                <IconButton
-                    onClick={deletePost}
-                    isLoading={deletePostLoading}
-                    ml="auto"
-                    size="md" 
-                    colorScheme="red"
-                    variant="ghost" 
-                    icon={<FaTrash />}
-                    isRound
-                />
+                {
+                    !userLoading && (user.id == post.uid) ? 
+                    (
+                        <IconButton
+                            onClick={deletePost}
+                            isLoading={deletePostLoading}
+                            ml="auto"
+                            size="md" 
+                            colorScheme="red"
+                            variant="ghost" 
+                            icon={<FaTrash />}
+                            isRound
+                        />
+                    )
+                    :
+                    (
+                        <>
+                        </>
+                    )
+                }
         </Flex>
     );
 }
